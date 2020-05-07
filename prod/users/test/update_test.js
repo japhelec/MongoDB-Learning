@@ -4,7 +4,7 @@ const User = require("../src/user");
 describe("Updating recors", () => {
   let joe;
   beforeEach((done) => {
-    joe = new User({ name: "Joe", postCount: 0 });
+    joe = new User({ name: "Joe"});
     joe.save().then((user) => done());
   });
 
@@ -65,7 +65,7 @@ describe("Updating recors", () => {
       });
   });
 
-  it("A user can have their postcount incremented by 1", (done) => {
+  xit("A user can have their postcount incremented by 1", (done) => {
     User.updateMany({ name: "Joe" }, { $inc: { postCount: 1 } })
       .then(() => {
         return User.findOne({ name: "Joe" });
