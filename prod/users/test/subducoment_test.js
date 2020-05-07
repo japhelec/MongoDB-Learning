@@ -52,5 +52,20 @@ describe("Subdocuments", () => {
       });
   });
 
-//   it("", (done) => {});
+  it("can remove an existing subdocuments", (done) => {
+    const joe = new User({ name: "Joe", posts: [{ title: "New Post" }] });
+    joe.save().then(() => {
+      return User.findOneAndUpdate(
+        { name: "Joe" },
+        { $pull: { posts: { title: "New Post" } } }
+      )
+        .then(() => {
+          return User.findOne({ name: "Joe" });
+        })
+        .then((user) => {
+          assert(user.posts.length === 0);
+          done();
+        });
+    });
+  });
 });
