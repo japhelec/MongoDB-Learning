@@ -21,8 +21,12 @@ before((done) => {
 
 //Provided by Mocha, tell Mocha execute below code before any testing
 beforeEach((done) => {
-  mongoose.connection.collections.users.drop(() => {
-    //Ready to run the test
-    done();
+  const { users, comments, blogposts } = mongoose.connection.collections;
+  users.drop(() => {
+    comments.drop(() => {
+      blogposts.drop(() => {
+        done();
+      });
+    });
   });
 });
