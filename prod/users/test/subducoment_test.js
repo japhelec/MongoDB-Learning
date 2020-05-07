@@ -34,4 +34,23 @@ describe("Subdocuments", () => {
         done();
       });
   });
+
+  it("Add subdocuments to an existing record through array update operator", (done) => {
+    const joe = new User({ name: "Joe", posts: [] });
+    joe
+      .save()
+      .then(() => {
+        return User.findOneAndUpdate(
+          { name: "Joe" },
+          { $push: { posts: { title: "New Post" } } }
+        );
+      })
+      .then(() => User.findOne({ name: "Joe" }))
+      .then((user) => {
+        assert(user.posts[0].title === "New Post");
+        done();
+      });
+  });
+
+//   it("", (done) => {});
 });
