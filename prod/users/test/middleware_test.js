@@ -20,7 +20,7 @@ describe("Middleware", () => {
     });
   });
 
-  it.only("users clean up dangling blogposts & comments on remove", (done) => {
+  it("users clean up dangling blogposts & comments on remove", (done) => {
     joe
       .remove()
       .then(() => {
